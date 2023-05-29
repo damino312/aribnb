@@ -1,12 +1,32 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import axios from "axios";
+import React, { useContext, useState } from "react";
+import { Link, Navigate } from "react-router-dom";
+import { UserContext } from "../UserContext";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [redirected, setRedirected] = useState(false);
+  const { setUser } = useContext(UserContext);
 
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
+    try {
+      const { data } = await axios.post(
+        "/login",
+        { email, password },
+        { withCredentials: true }
+      );
+      setUser(data);
+      alert("Login successful");
+      setRedirected(true);
+    } catch (e) {
+      alert(`Login failed`);
+    }
+  }
+
+  if (redirected) {
+    return <Navigate to={"/"} />;
   }
   return (
     <div className=" grow flex items-center justify-center">
@@ -18,12 +38,14 @@ export default function LoginPage() {
             placeholder="your@email.ru"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
+            autoComplete="username"
           />
           <input
             type="password"
             placeholder="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+            autoComplete="current-password"
           />
           <button className="primary">Login</button>
         </form>
