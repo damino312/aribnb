@@ -28,16 +28,16 @@ export default function AccountPage() {
   }
 
   function linkClasses(type = null) {
-    let classes = "py-2 px-6";
+    let classes = "py-2 px-6 rounded-full bg-gray-200";
     if (type === subpage) {
-      classes += " bg-primary text-white rounded-full";
+      classes += " bg-primary text-white";
     }
     return classes;
   }
 
   return (
     <div>
-      <nav className="flex justify-center mt-8 ">
+      <nav className="flex justify-center mt-8 gap-2 ">
         <Link className={linkClasses("profile")} to={"/account"}>
           My profile
         </Link>
