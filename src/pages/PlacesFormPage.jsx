@@ -4,9 +4,13 @@ import Perks from "../Perks";
 import axios from "axios";
 
 import PhotosUploader from "../PhotosUploader";
-import { Navigate } from "react-router-dom";
+import { Navigate, useParams } from "react-router-dom";
+import ProfileNav from "../ProfileNav";
+import { useEffect } from "react";
 
 export default function NewPlacePage() {
+  const { id } = useParams();
+
   const [title, setTitle] = useState("");
   const [address, setAddress] = useState("");
   const [addedPhotos, setAddedPhotos] = useState([]);
@@ -17,6 +21,23 @@ export default function NewPlacePage() {
   const [maxGuest, setMaxGuest] = useState(1);
   const [extraInfo, setExtraInfo] = useState("");
   const [redirect, setRedirect] = useState(false);
+  useEffect(() => {
+    if (!id) {
+      return;
+    }
+    axios.get("/places/" + id).then((response) => {
+      const { data } = response;
+      setTitle(data.title);
+      setAddress(data.address);
+      setAddedPhotos(data.photos);
+      setDescription(data.description);
+      setPerks(data.perks);
+      setCheckIn(data.checkIn);
+      setCheckOut(data.checkOut);
+      setMaxGuest(data.maxGuest);
+      setExtraInfo(data.extraInfo);
+    });
+  }, []); // ADD ID INTO BRACKETS
 
   function inputHeader(text) {
     return <h2 className="text-2xl mt-2">{text}</h2>;
@@ -37,7 +58,7 @@ export default function NewPlacePage() {
 
   async function addNewPlace(ev) {
     ev.preventDefault();
-    await axios.post("/places", {
+    const placeData = {
       title,
       address,
       addedPhotos,
@@ -47,7 +68,18 @@ export default function NewPlacePage() {
       checkIn,
       checkOut,
       maxGuest,
-    });
+    };
+    if (id) {
+      await axios.put("/places", {
+        id,
+        ...placeData,
+      });
+    } else {
+      await axios.post("/places", {
+        placeData,
+      });
+    }
+
     setRedirect(true);
   }
 
@@ -57,6 +89,7 @@ export default function NewPlacePage() {
 
   return (
     <div>
+      <ProfileNav />
       <form onSubmit={addNewPlace}>
         {preInput("Title", "name somehow your place")}
         <input

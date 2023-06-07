@@ -2,12 +2,12 @@ import "./App.css";
 import IndexPage from "./pages/IndexPage";
 import LoginPage from "./pages/LoginPage";
 import ProfilePage from "./pages/ProfilePage";
-import NewPlacePage from "./pages/NewPlacePage";
+import PlacesFormPage from "./pages/PlacesFormPage";
 import Layout from "./Layout";
 import { Routes, Route } from "react-router-dom";
 import RegisterPage from "./pages/RegisterPage";
 import axios from "axios";
-import { UserContext, UserContextProvider } from "./UserContext";
+import { UserContextProvider } from "./UserContext";
 import PlacesPage from "./pages/PlacesPage";
 
 axios.defaults.baseURL = "http://localhost:4000";
@@ -23,7 +23,8 @@ export default function App() {
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/account" element={<ProfilePage />} />
           <Route path="/account/places" element={<PlacesPage />} />
-          <Route path="/account/places/new" element={<NewPlacePage />}></Route>
+          <Route path="/account/places/new" element={<PlacesFormPage />} />
+          <Route path="/account/places/:id" element={<PlacesFormPage />} />
         </Route>
       </Routes>
     </UserContextProvider>

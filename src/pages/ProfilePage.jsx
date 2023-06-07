@@ -1,14 +1,17 @@
 import React, { createContext, useContext, useState } from "react";
 import { UserContext } from "../UserContext";
 import { Navigate, useParams } from "react-router-dom";
-import { Link } from "react-router-dom";
+import ProfileNav from "../ProfileNav";
+
 import axios from "axios";
 import PlacesPage from "./PlacesPage";
 
 export default function AccountPage() {
   const { user, ready, setUser } = useContext(UserContext);
+  const [redirect, setRedirect] = useState(false);
 
   let { subpage } = useParams();
+
   if (subpage === undefined) {
     subpage = "profile";
   }
@@ -23,31 +26,17 @@ export default function AccountPage() {
     return "Loading...";
   }
 
-  if (!user && ready) {
-    return <Navigate to={"/login"} />;
+  if (!user && ready && !redirect) {
+    setRedirect(true);
   }
 
-  function linkClasses(type = null) {
-    let classes = "py-2 px-6 rounded-full bg-gray-200";
-    if (type === subpage) {
-      classes += " bg-primary text-white";
-    }
-    return classes;
+  if (redirect) {
+    return <Navigate to={redirect} />;
   }
 
   return (
     <div>
-      <nav className="flex justify-center mt-8 gap-2 ">
-        <Link className={linkClasses("profile")} to={"/account"}>
-          My profile
-        </Link>
-        <Link className={linkClasses("bookings")} to={"/account/bookings"}>
-          My bookings
-        </Link>
-        <Link className={linkClasses("places")} to={"/account/places"}>
-          My accommodations
-        </Link>
-      </nav>
+      <ProfileNav />
       {subpage === "profile" && (
         <div className="text-center max-w-lg mx-auto my-3">
           Logged in as {user.name} ({user.email}) <br />
