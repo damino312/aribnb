@@ -20,6 +20,7 @@ export default function NewPlacePage() {
   const [checkOut, setCheckOut] = useState("");
   const [maxGuest, setMaxGuest] = useState(1);
   const [extraInfo, setExtraInfo] = useState("");
+  const [price, setPrice] = useState(100);
   const [redirect, setRedirect] = useState(false);
   useEffect(() => {
     if (!id) {
@@ -36,6 +37,7 @@ export default function NewPlacePage() {
       setCheckOut(data.checkOut);
       setMaxGuest(data.maxGuest);
       setExtraInfo(data.extraInfo);
+      setPrice(data.price);
     });
   }, []); // ADD ID INTO BRACKETS
 
@@ -68,6 +70,7 @@ export default function NewPlacePage() {
       checkIn,
       checkOut,
       maxGuest,
+      price,
     };
     if (id) {
       await axios.put("/places", {
@@ -161,11 +164,21 @@ export default function NewPlacePage() {
           </div>
         </div>
 
+        {preInput("Price", "Price per night")}
+        <input
+          className="text-gray-500"
+          type="number"
+          placeholder="your price, type it here"
+          value={price}
+          onChange={(ev) => setPrice(ev.target.value)}
+        />
+
         {preInput("Extra info", "additional info like house rules, etc")}
         <textarea
           value={extraInfo}
           onChange={(ev) => setExtraInfo(ev.target.value)}
         />
+
         <button className="primary my-4">Save</button>
       </form>
     </div>
