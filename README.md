@@ -5,3 +5,4 @@ plans:
 
 - impliment functionality search
 - chat between users
+- registration with email confirmation
