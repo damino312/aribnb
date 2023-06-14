@@ -7,7 +7,7 @@ export default function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [redirected, setRedirected] = useState(false);
-  const { setUser } = useContext(UserContext);
+  const { setUser, setReady } = useContext(UserContext);
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -18,6 +18,7 @@ export default function LoginPage() {
         { withCredentials: true }
       );
       setUser(data);
+      setReady(true)
       alert("Login successful");
       setRedirected(true);
     } catch (e) {
