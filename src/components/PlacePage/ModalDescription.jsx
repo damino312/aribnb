@@ -1,12 +1,43 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
-export default function ModalDescription({ isShown, closeGallery }) {
-  if (!isShown) return;
+export default function ModalDescription({
+  isShown,
+  closeModalDescription,
+  description,
+}) {
+  
+  if (!isShown) {
+    return;
+  }
+  const [closing, setClosing] = useState(false) // straight below the if
+
+  //to not close the modal window by clicking any area but just by the container
+  const handleBackdropClick = (event) => {
+    if (event.target === event.currentTarget) {
+      closeAnim();
+    }
+  };
+
+  const closeAnim = () => {
+    setClosing(true)
+    setTimeout(() => {
+      closeModalDescription(); // so that It did not close before the anim ends
+    }, 500);
+  };
+
   return (
-    <div className=" inset-0 fixed bg-black bg-opacity-50  flex justify-center items-center animate-[fade_0.5s_ease-in-out]">
-      <div className=" h-3/4 w-1/2 bg-white rounded-lg animate-[popUp_0.5s_ease-in-out]">
-        <div className="p-4  ">
-          <button onClick={closeGallery} className="p-2 hover:animate-[turnAround_1s_ease-in-out] ">
+    <div
+      className={`fixed inset-0 bg-black ${
+        closing ? " opacity-0" : "bg-opacity-50"
+      } flex justify-center items-center transition duration-500`}
+      onClick={handleBackdropClick}
+    >
+      <div className=" h-3/4 max-h-full overflow-auto w-1/2 bg-white rounded-lg animate-[popUp_0.5s_ease-in-out] p-6">
+        <div className="mt-22">
+          <button
+            onClick={closeAnim}
+            className=" hover:animate-[turnAround_1s_ease-in-out] "
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -23,6 +54,8 @@ export default function ModalDescription({ isShown, closeGallery }) {
             </svg>
           </button>
         </div>
+        <h2 className="text-3xl font-bold mb-4">About this place:</h2>
+        <p className=" whitespace-pre-line text-justify">{description}</p>
       </div>
     </div>
   );
