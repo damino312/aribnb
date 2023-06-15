@@ -1,23 +1,85 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import Pictures from "../components/PlacePage/Pictures";
+import ModalDescription from "../components/PlacePage/ModalDescription";
+import ModalGallery from "../components/PlacePage/ModalGallery";
+import Booking from "../components/PlacePage/Booking";
 
 export default function PlacePage() {
   const { id } = useParams();
-  const [placeData, setPlaceData] = useState("");
+  const [place, setPlace] = useState("");
+  const [showDescription, setShowDescription] = useState(false);
+  const [showGallery, setShowGallery] = useState(false);
   useEffect(() => {
     if (!id) return;
     axios.get("/places/" + id).then((res) => {
-      setPlaceData(res.data);
+      setPlace(res.data);
     });
   }, []);
-
   return (
     <div>
-      <div className="mt-8">
-        <h1 className=" font-bold text-2xl">{placeData.title}</h1>
-        <h2 className="mt-2 underline decoration-1">{placeData.address}</h2>
+      <div className="mt-8 mb-4">
+        <h1 className=" font-bold text-2xl">{place.title}</h1>
+        <h2 className="mt-2 underline decoration-1">{place.address}</h2>
       </div>
+      <Pictures place={place} showGallery={() => setShowGallery(true)} />
+      <div className="flex gap-10 pt-10">
+        <div className=" w-3/5 ">
+          <div className="border-b-2 border-gray-200 pb-10">
+            <h2 className=" text-2xl font-bold mb-6">About this place:</h2>
+            <p className=" line-clamp-4">{place.description}</p>
+            <button
+              className="py-1 mt-2"
+              onClick={() => setShowDescription(true)}
+            >
+              <span className="font-bold text-lg border-b-2 border-black">
+                See more
+              </span>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={1.5}
+                stroke="currentColor"
+                className="w-6 h-6 inline"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M8.25 4.5l7.5 7.5-7.5 7.5"
+                />
+              </svg>
+            </button>
+          </div>
+          <div className="pt-10 border-b-2 border-gray-200 pb-10">
+            <h2 className="text-2xl font-bold mb-6">The place offers:</h2>
+            <ul className="grid grid-rows-3 grid-flow-col">
+              {place.perks?.slice(0, 6).map((perk) => (
+                <li key={perk}>{perk}</li>
+              ))}
+            </ul>
+          </div>
+          <div className="pt-10 pb-10">
+            <h2 className="text-xl font-bold mb-6">Extra information:</h2>
+            <div className=" text-sm text-gray-500">{place.extraInfo}</div>
+          </div>
+        </div>
+        <div className="w-2/5 flex justify-end ">
+          <Booking price={place.price} idPlace={place._id} />
+        </div>
+      </div>
+
+      <ModalDescription
+        isShown={showDescription}
+        closeModalDescription={() => setShowDescription(false)}
+        description={place.description}
+      />
+      <ModalGallery
+        images={place.photos}
+        isShown={showGallery}
+        closeModalGallery={() => setShowGallery(false)}
+      />
     </div>
   );
 }
