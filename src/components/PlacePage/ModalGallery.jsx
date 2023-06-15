@@ -19,22 +19,24 @@ export default function ModalGallery({ isShown, images, closeModalGallery }) {
               stroke="currentColor"
               className="w-8 h-8 text-red-700"
             >
-              <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M6 18L18 6M6 6l12 12"
+              />
             </svg>
           </button>
         </div>
         <div>
           {images.map((image) => (
-            
-              <img
-                src={"http://localhost:4000/uploads/" + image}
-                alt=""
-                className="object-cover object-center w-full aspect-video mt-2 last:pb-10"
-              />
-            
+            <img
+              key={image}
+              src={"http://localhost:4000/uploads/" + image}
+              alt=""
+              className="object-cover object-center w-full aspect-video mt-2 last:pb-10"
+            />
           ))}
         </div>
-        
       </div>
     </div>
   );

@@ -27,8 +27,8 @@ export default function ModalDescription({
 
   return (
     <div
-      className={`fixed inset-0 bg-black ${
-        closing ? " opacity-0" : "bg-opacity-50"
+      className={`fixed inset-0 bg-opacity-50 bg-black ${
+        closing ? " opacity-0" : "animate-[fade_0.5s]"
       } flex justify-center items-center transition duration-500`}
       onClick={handleBackdropClick}
     >

@@ -15,8 +15,8 @@ export default function Perks({ selected, onChange }) {
       <label className="border p-4 flex rounded-2xl gap-2 items-center cursor-pointer">
         <input
           type="checkbox"
-          checked={selected.includes("wifi")}
-          name="wifi"
+          checked={selected.includes("WIFI")}
+          name="WIFI"
           onChange={handleCbClick}
         />
         <span>WIFI</span>
@@ -24,8 +24,8 @@ export default function Perks({ selected, onChange }) {
       <label className="border p-4 flex rounded-2xl gap-2 items-center cursor-pointer">
         <input
           type="checkbox"
-          checked={selected.includes("parking")}
-          name="parking"
+          checked={selected.includes("Parking")}
+          name="Parking"
           onChange={handleCbClick}
         />
         <span>Free parking lot</span>
@@ -33,8 +33,8 @@ export default function Perks({ selected, onChange }) {
       <label className="border p-4 flex rounded-2xl gap-2 items-center cursor-pointer">
         <input
           type="checkbox"
-          checked={selected.includes("tv")}
-          name="tv"
+          checked={selected.includes("TV")}
+          name="TV"
           onChange={handleCbClick}
         />
         <span>TV</span>
@@ -42,8 +42,8 @@ export default function Perks({ selected, onChange }) {
       <label className="border p-4 flex rounded-2xl gap-2 items-center cursor-pointer">
         <input
           type="checkbox"
-          checked={selected.includes("radio")}
-          name="radio"
+          checked={selected.includes("Radio")}
+          name="Radio"
           onChange={handleCbClick}
         />
         <span>Radio</span>
@@ -51,8 +51,8 @@ export default function Perks({ selected, onChange }) {
       <label className="border p-4 flex rounded-2xl gap-2 items-center cursor-pointer">
         <input
           type="checkbox"
-          checked={selected.includes("playstation")}
-          name="playstation"
+          checked={selected.includes("Playstation")}
+          name="Playstation"
           onChange={handleCbClick}
         />
         <span>PlayStation</span>
