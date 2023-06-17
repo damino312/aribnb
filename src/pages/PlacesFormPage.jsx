@@ -79,7 +79,7 @@ export default function NewPlacePage() {
       });
     } else {
       await axios.post("/places", {
-        placeData,
+        ...placeData,
       });
     }
 
