@@ -23,6 +23,9 @@
             },
           },
         },
+        gridTemplateColumns: {
+          layout: "repeat(3, minmax(0, 1fr)) minmax(60px, 100px)",
+        },
       },
     },
     plugins: [
