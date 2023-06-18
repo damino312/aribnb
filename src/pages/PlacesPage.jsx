@@ -6,7 +6,7 @@ import ProfileNav from "../ProfileNav";
 export default function PlacesPage() {
   const [places, setPlaces] = useState([]);
   useEffect(() => {
-    fetchData()
+    fetchData();
   }, []);
 
   function fetchData() {
@@ -15,22 +15,18 @@ export default function PlacesPage() {
         setPlaces(data);
       });
     } catch (error) {
-      console.error(error)
+      console.error(error);
     }
   }
-
-
 
   async function handleDelete(ev, id) {
     ev.preventDefault();
     try {
-      console.log(await axios.delete(`/places/${id}` )) 
-      fetchData()
+      console.log(await axios.delete(`/places/${id}`));
+      fetchData();
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-    
-    
   }
   return (
     <div>
@@ -68,19 +64,24 @@ export default function PlacesPage() {
                   <img
                     src={"http://localhost:4000/uploads/" + place.photos[0]}
                     alt=""
-                    className="h-full object-cover"
+                    className="h-full w-full object-cover"
                   ></img>
                 )}
               </div>
-              <div className="h-32">
-                <h2 className="text-xl text-center mb-1 ">{place.title}</h2>
-                <p className="text-left text-sm line-clamp-5 ">
-                  {place.description}
-                </p>
+              <div className="flex justify-between w-full group-hover:gap-2">
+                <div className="h-32 w-full">
+                  <h2 className="text-xl text-center mb-1 ">{place.title}</h2>
+                  <p className="text-left text-sm line-clamp-5 ">
+                    {place.description}
+                  </p>
+                </div>
+                <button
+                  className="bg-primary text-white px-2 hidden group-hover:block invisible group-hover:visible"
+                  onClick={(ev) => handleDelete(ev, place._id)}
+                >
+                  Delete
+                </button>
               </div>
-              <button className="bg-primary text-white px-2  opacity-0 translate-x-32 invisible group-hover:visible group-hover:opacity-100 group-hover:translate-x-0 transition" onClick={(ev) => handleDelete(ev, place._id)}>
-                Delete
-              </button>
             </Link>
           ))}
       </div>
