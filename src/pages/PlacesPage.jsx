@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import ProfileNav from "../ProfileNav";
+import ProfileNav from "../components/commonComponents/ProfileNav";
 
 export default function PlacesPage() {
   const [places, setPlaces] = useState([]);

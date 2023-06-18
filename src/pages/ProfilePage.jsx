@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useState } from "react";
 import { UserContext } from "../UserContext";
 import { Navigate, useParams } from "react-router-dom";
-import ProfileNav from "../ProfileNav";
+import ProfileNav from "../components/commonComponents/ProfileNav";
 
 import axios from "axios";
 import PlacesPage from "./PlacesPage";

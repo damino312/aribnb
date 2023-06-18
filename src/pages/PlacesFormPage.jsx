@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 
-import Perks from "../Perks";
+import Perks from "../components/PlacesFormPage/Perks";
 import axios from "axios";
 
-import PhotosUploader from "../PhotosUploader";
+import PhotosUploader from "../components/PlacesFormPage/PhotosUploader";
 import { Navigate, useParams } from "react-router-dom";
-import ProfileNav from "../ProfileNav";
+import ProfileNav from "../components/commonComponents/ProfileNav";
 import { useEffect } from "react";
 
 export default function NewPlacePage() {
