@@ -7,15 +7,19 @@ export default function BookingPage() {
   const [bookings, setBookings] = useState("");
 
   useEffect(() => {
+    getMyBookings();
+  }, []);
+
+  function getMyBookings() {
     axios.get("/bookings").then(({ data }) => {
       setBookings(data);
-      console.log(data);
     });
-  }, []);
+  }
 
   async function handleDelete(ev, bookingId) {
     ev.preventDefault();
     await axios.delete("http://localhost:4000/booking/" + bookingId);
+    getMyBookings();
   }
   return (
     <div>
