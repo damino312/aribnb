@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import BookingForm from "./BookingForm";
 
-export default function Booking({ price, idPlace }) {
+export default function Booking({ price, idPlace, showError, owner }) {
   const [checkIn, setCheckIn] = useState("");
   const [checkOut, setCheckOut] = useState("");
 
@@ -25,6 +25,8 @@ export default function Booking({ price, idPlace }) {
         setCheckIn={setCheckIn}
         setCheckOut={setCheckOut}
         idPlace={idPlace}
+        showError={showError}
+        owner={owner}
       />
 
       <div className="flex justify-between mt-2 pt-4 border-t border-gray-300">

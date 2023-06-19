@@ -5,20 +5,23 @@ import Pictures from "../components/PlacePage/Pictures";
 import ModalDescription from "../components/PlacePage/ModalDescription";
 import ModalGallery from "../components/PlacePage/ModalGallery";
 import Booking from "../components/PlacePage/Booking";
+import ErrorWindow from "../components/commonComponents/ErrorWindow";
 
 export default function PlacePage() {
   const { id } = useParams();
   const [place, setPlace] = useState("");
   const [showDescription, setShowDescription] = useState(false);
   const [showGallery, setShowGallery] = useState(false);
+  const [errorBooking, setErrorBooking] = useState(0);
   useEffect(() => {
     if (!id) return;
     axios.get("/places/" + id).then((res) => {
       setPlace(res.data);
     });
   }, []);
+
   return (
-    <div>
+    <div className="relative">
       <div className="mt-8 mb-4">
         <h1 className=" font-bold text-2xl">{place.title}</h1>
         <h2 className="mt-2 underline decoration-1">{place.address}</h2>
@@ -66,7 +69,12 @@ export default function PlacePage() {
           </div>
         </div>
         <div className="w-2/5 flex justify-end ">
-          <Booking price={place.price} idPlace={place._id} />
+          <Booking
+            price={place.price}
+            idPlace={place._id}
+            showError={setErrorBooking}
+            owner={place.owner}
+          />
         </div>
       </div>
 
@@ -78,7 +86,18 @@ export default function PlacePage() {
       <ModalGallery
         images={place.photos}
         isShown={showGallery}
-        closeModalGallery={() => setShowGallery(false)}
+        closeModalGallery={() => setShowGallery(true)}
+      />
+      <ErrorWindow
+        text={
+          errorBooking === 1
+            ? "You are not logged in"
+            : errorBooking === 2
+            ? "You are an owner of this place"
+            : null
+        }
+        isShown={errorBooking}
+        hideError={() => setErrorBooking(0)}
       />
     </div>
   );

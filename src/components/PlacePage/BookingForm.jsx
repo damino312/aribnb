@@ -8,6 +8,8 @@ export default function BookingForm({
   setCheckIn,
   setCheckOut,
   idPlace,
+  showError,
+  owner,
 }) {
   const [guests, setGuests] = useState(1);
   const [firstName, setFirstName] = useState("");
@@ -16,6 +18,15 @@ export default function BookingForm({
 
   function bookThePlace(ev) {
     ev.preventDefault();
+    console.log(user?._id, owner);
+    //verifying 1 - not logged in, 2 - owner
+    if (!user?._id) {
+      showError(1);
+      return 0;
+    } else if (user?._id == owner) {
+      showError(2);
+      return 0;
+    }
     axios.post("/booking", {
       user: user._id,
       place: idPlace,
