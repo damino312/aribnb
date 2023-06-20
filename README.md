@@ -3,6 +3,7 @@ AIRBNB clone, react.js, tailwind, express.js, mongodb
 
 plans: 
 
-- impliment functionality search
+- impliment search in indexPage
+- expand bookings with history
 - chat between users
-- registration with email confirmation
+
