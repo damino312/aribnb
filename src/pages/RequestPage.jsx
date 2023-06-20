@@ -20,6 +20,16 @@ export default function RequestPage() {
     await axios.put("/myrequest", { status, ownerId, bookingId });
     getMyRequest();
   }
+
+  function returnInfo(name, value) {
+    return (
+      <p className="">
+        <span className="font-bold">{name}: </span>
+        {value}
+      </p>
+    );
+  }
+
   return (
     <div>
       <ProfileNav />
@@ -58,24 +68,17 @@ export default function RequestPage() {
                 </button>
               </div>
 
-              <p className="">
-                <span className="font-bold">Name:</span> {booking.name}
-              </p>
-              <p className="">
-                <span className="font-bold">Check in:</span>{" "}
-                {new Date(booking.checkIn).toLocaleDateString("en-US")}
-              </p>
-              <p>
-                <span className="font-bold">Check out:</span>{" "}
-                {new Date(booking.checkOut).toLocaleDateString("en-US")}
-              </p>
-              <p>
-                <span className="font-bold">Phone:</span> {booking.phone}
-              </p>
-              <p>
-                <span className="font-bold">Number of the guests:</span>{" "}
-                {booking.guests}
-              </p>
+              {returnInfo("Name", booking.name)}
+              {returnInfo(
+                "Check in",
+                new Date(booking.checkIn).toLocaleDateString("en-US")
+              )}
+              {returnInfo(
+                "Check out",
+                new Date(booking.checkOut).toLocaleDateString("en-US")
+              )}
+              {returnInfo("Phone", booking.phone)}
+              {returnInfo("Number of the guests", booking.guests)}
             </div>
           </Link>
         ))}

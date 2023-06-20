@@ -6,6 +6,7 @@ export default function RegisterPage() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [redirected, setRedirected] = useState(false);
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -15,9 +16,14 @@ export default function RegisterPage() {
         email,
         password,
       });
+      setRedirected(true);
     } catch (e) {
       alert(`Registration failed, try again later`);
     }
+  }
+
+  if (redirected) {
+    return <Navigate to={"/"} />;
   }
 
   return (
