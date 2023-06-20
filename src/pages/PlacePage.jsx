@@ -86,7 +86,7 @@ export default function PlacePage() {
       <ModalGallery
         images={place.photos}
         isShown={showGallery}
-        closeModalGallery={() => setShowGallery(true)}
+        closeModalGallery={() => setShowGallery(false)}
       />
       <ErrorWindow
         text={
