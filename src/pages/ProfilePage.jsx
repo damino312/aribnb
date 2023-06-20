@@ -18,7 +18,7 @@ export default function ProfilePage() {
 
   async function logout() {
     await axios.post("/logout");
-    
+
     setUser(null); // чтобы убрать данные юзера
     setReady(true);
   }
@@ -46,7 +46,7 @@ export default function ProfilePage() {
           </button>
         </div>
       )}
-      {subpage === "places" && <PlacesPage />}
+      {/* {subpage === "places" && <PlacesPage />} */}
     </div>
   );
 }

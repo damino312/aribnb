@@ -1,31 +1,31 @@
-import axios from "axios";
-import React, { useEffect, useState, useContext } from "react";
-import { Link } from "react-router-dom";
+import React from "react";
 import ProfileNav from "../components/commonComponents/ProfileNav";
+import BookingNav from "../components/commonComponents/BookingNav";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import { Link } from "react-router-dom";
 
-export default function BookingPage() {
-  const [bookings, setBookings] = useState("");
-
+export default function RequestHistoryPage() {
+  const [history, setHistory] = useState([]);
   useEffect(() => {
-    getMyBookings();
+    getHistory();
   }, []);
 
-  function getMyBookings() {
-    axios.get("/bookings").then(({ data }) => {
-      setBookings(data);
-    });
+  function getHistory() {
+    axios.get("/myrequests/history").then(({ data }) => setHistory(data));
   }
 
-  async function handleDelete(ev, bookingId) {
+  async function handleStatus(ev, status, ownerId, bookingId) {
     ev.preventDefault();
-    await axios.delete("http://localhost:4000/booking/" + bookingId);
-    getMyBookings();
+    await axios.put("/myrequest", { status, ownerId, bookingId });
+    getHistory();
   }
   return (
     <div>
       <ProfileNav />
-      {bookings.length > 0 &&
-        bookings.map((booking) => (
+      <BookingNav />
+      {history.length > 0 &&
+        history.map((booking) => (
           <Link
             className="flex h-40 my-4 p-2 bg-gray-300 w-full rounded-2xl gap-2"
             key={booking._id}
@@ -41,23 +41,27 @@ export default function BookingPage() {
               </h2>
               <div className="row-span-3 justify-self-center ">
                 <button
-                  onClick={(ev) => handleDelete(ev, booking._id)}
-                  className=" bg-green-500 rounded-2xl py-2 px-4 text-white"
+                  onClick={(ev) =>
+                    handleStatus(ev, 1, booking.place.owner, booking._id)
+                  }
+                  className="bg-green-400 rounded-2xl py-2 px-4 text-white mb-4"
                 >
                   Approve
                 </button>
                 <button
-                  onClick={(ev) => handleDelete(ev, booking._id)}
+                  onClick={(ev) =>
+                    handleStatus(ev, 2, booking.place.owner, booking._id)
+                  }
                   className="bg-primary rounded-2xl py-2 px-4 text-white"
                 >
                   Dismiss
                 </button>
               </div>
 
-              <p className="">
+              <p>
                 <span className="font-bold">Name:</span> {booking.name}
               </p>
-              <p className="">
+              <p>
                 <span className="font-bold">Check in:</span>{" "}
                 {new Date(booking.checkIn).toLocaleDateString("en-US")}
               </p>
@@ -71,6 +75,12 @@ export default function BookingPage() {
               <p>
                 <span className="font-bold">Number of the guests:</span>{" "}
                 {booking.guests}
+              </p>
+              <p>
+                {" "}
+                <span className="font-bold">
+                  Status: {booking.status === 1 ? "Approved" : "Dismissed"}
+                </span>
               </p>
             </div>
           </Link>

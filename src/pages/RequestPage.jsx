@@ -1,31 +1,31 @@
 import axios from "axios";
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import ProfileNav from "../components/commonComponents/ProfileNav";
+import BookingNav from "../components/commonComponents/BookingNav";
 
-export default function BookingPage() {
-  const [bookings, setBookings] = useState("");
-
+export default function RequestPage() {
+  const [myRequests, setMyRequests] = useState([]);
   useEffect(() => {
-    getMyBookings();
+    getMyRequest();
   }, []);
 
-  function getMyBookings() {
-    axios.get("/bookings").then(({ data }) => {
-      setBookings(data);
-    });
+  function getMyRequest() {
+    axios.get("/myrequests").then(({ data }) => setMyRequests(data));
   }
 
-  async function handleDelete(ev, bookingId) {
+  // status: 0 - in process, 1 - approved, 2 - dismissed
+  async function handleStatus(ev, status, ownerId, bookingId) {
     ev.preventDefault();
-    await axios.delete("http://localhost:4000/booking/" + bookingId);
-    getMyBookings();
+    await axios.put("/myrequest", { status, ownerId, bookingId });
+    getMyRequest();
   }
   return (
     <div>
       <ProfileNav />
-      {bookings.length > 0 &&
-        bookings.map((booking) => (
+      <BookingNav />
+      {myRequests.length > 0 &&
+        myRequests.map((booking) => (
           <Link
             className="flex h-40 my-4 p-2 bg-gray-300 w-full rounded-2xl gap-2"
             key={booking._id}
@@ -41,13 +41,17 @@ export default function BookingPage() {
               </h2>
               <div className="row-span-3 justify-self-center ">
                 <button
-                  onClick={(ev) => handleDelete(ev, booking._id)}
-                  className=" bg-green-500 rounded-2xl py-2 px-4 text-white"
+                  onClick={(ev) =>
+                    handleStatus(ev, 1, booking.place.owner, booking._id)
+                  }
+                  className="bg-green-400 rounded-2xl py-2 px-4 text-white mb-4"
                 >
                   Approve
                 </button>
                 <button
-                  onClick={(ev) => handleDelete(ev, booking._id)}
+                  onClick={(ev) =>
+                    handleStatus(ev, 2, booking.place.owner, booking._id)
+                  }
                   className="bg-primary rounded-2xl py-2 px-4 text-white"
                 >
                   Dismiss

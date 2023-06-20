@@ -23,7 +23,7 @@ export default function BookingForm({
     if (!user?._id) {
       showError(1);
       return 0;
-    } else if (user?._id == owner) {
+    } else if (user?._id === owner) {
       showError(2);
       return 0;
     }
@@ -35,6 +35,7 @@ export default function BookingForm({
       checkOut: checkOut,
       firstName: firstName,
       phone: phone,
+      owner: owner,
     });
   }
   return (
@@ -47,6 +48,7 @@ export default function BookingForm({
             name="checkIn"
             value={checkIn}
             onChange={(ev) => setCheckIn(ev.target.value)}
+            required
           />
         </div>
         <div className="p-2 py-3">
@@ -56,6 +58,7 @@ export default function BookingForm({
             name="checkOut"
             value={checkOut}
             onChange={(ev) => setCheckOut(ev.target.value)}
+            required
           />
         </div>
         <div className=" col-span-2 p-2 py-3 border-t border-inherit">
@@ -66,6 +69,7 @@ export default function BookingForm({
             value={guests}
             onChange={(ev) => setGuests(ev.target.value)}
             placeholder="type the number"
+            required
           />
         </div>
         <div className="col-span-2 p-2 py-3 border-t border-inherit">
@@ -75,6 +79,7 @@ export default function BookingForm({
             value={firstName}
             onChange={(ev) => setFirstName(ev.target.value)}
             placeholder="John Doe"
+            required
           />
           <p className="font-bold text-sm">Your phone number:</p>
           <input
@@ -82,6 +87,7 @@ export default function BookingForm({
             value={phone}
             onChange={(ev) => setPhone(ev.target.value)}
             placeholder="+7913123132"
+            required
           />
         </div>
       </div>

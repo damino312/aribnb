@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, useParams, useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 export default function ProfileNav() {
   let { pathname } = useLocation();
@@ -21,6 +21,9 @@ export default function ProfileNav() {
       </Link>
       <Link className={linkClasses("bookings")} to={"/account/bookings"}>
         My bookings
+      </Link>
+      <Link className={linkClasses("requests")} to={"/account/requests"}>
+        My requests
       </Link>
       <Link className={linkClasses("places")} to={"/account/places"}>
         My accommodations
