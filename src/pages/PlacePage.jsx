@@ -13,6 +13,8 @@ export default function PlacePage() {
   const [showDescription, setShowDescription] = useState(false);
   const [showGallery, setShowGallery] = useState(false);
   const [errorBooking, setErrorBooking] = useState(0);
+
+
   useEffect(() => {
     if (!id) return;
     axios.get("/places/" + id).then((res) => {
@@ -94,6 +96,12 @@ export default function PlacePage() {
             ? "You are not logged in"
             : errorBooking === 2
             ? "You are an owner of this place"
+            : errorBooking === 3
+            ? "Something wrong with the dates"
+            : errorBooking === 4
+            ? "Already has been booked by you"
+            : errorBooking === 5
+            ? "You have exceeded the limit"
             : null
         }
         isShown={errorBooking}

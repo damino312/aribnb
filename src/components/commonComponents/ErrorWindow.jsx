@@ -27,7 +27,7 @@ export default function ErrorWindow({ text, isShown, hideError }) {
         (hide ? " opacity-100" : " opacity-0 pointer-events-none")
       }
     >
-      <p className="text-white text-lg">{text || "error"}</p>
+      <p className="text-white text-lg text-center">{text || "error"}</p>
     </div>
   );
 }
