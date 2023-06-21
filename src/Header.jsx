@@ -1,11 +1,31 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import { UserContext } from "./UserContext";
+import { PlaceContext } from "./PlaceContext";
+import axios from "axios";
 
 export default function Header() {
   const { user } = useContext(UserContext);
+  const [query, setQuery] = useState("");
+  const { setPlaces } = useContext(PlaceContext);
+
+  function findPlaceByName() {
+    axios
+      .get("/searchByPlace", { params: { title: query } })
+      .then(({ data }) => {
+        if (data && data.length > 0) {
+          setPlaces(data);
+        } else {
+          console.log("false");
+        }
+      })
+      .catch((error) => {
+        console.error("Ошибка при выполнении запроса:", error);
+      });
+  }
+
   return (
-    <header >
+    <header>
       <div className="flex justify-between items-center ">
         <Link to={"/"} className="flex items-center gap-1">
           <svg
@@ -24,13 +44,18 @@ export default function Header() {
           </svg>
           <span className="font-bold text-xl">airbnb</span>
         </Link>
-        <div className="flex border gap-2 border-gray-300 rounded-full px-4 py-2 shadow-md shadow-gray-300">
-          <div>Anywhere</div>
-          <div className="border-l border-gray-300"></div>
-          <div>Any week</div>
-          <div className="border-l border-gray-300"></div>
-          <div>Add guests</div>
-          <button className="bg-primary text-white p-1 rounded-full items-center">
+        <div className="flex items-center border gap-2 border-gray-300 rounded-full px-4 shadow-md shadow-gray-300">
+          <input
+            type="text"
+            value={query}
+            onChange={(ev) => setQuery(ev.target.value)}
+            className="h-7"
+            placeholder="Type the place"
+          />
+          <button
+            onClick={() => findPlaceByName(query)}
+            className="bg-primary text-white p-2 my-2 rounded-full items-center text-center"
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
