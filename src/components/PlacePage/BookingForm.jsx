@@ -20,14 +20,31 @@ export default function BookingForm({
   const { user } = useContext(UserContext);
 
   useEffect(() => {
-    axios.get("/bookings").then(({ data }) => {
-      setMyBookings(data);
-    });
+    if (user) {
+      axios.get("/bookings").then(({ data }) => {
+        setMyBookings(data);
+      });
+    }
   }, []);
 
   function bookThePlace(ev) {
     ev.preventDefault();
 
+    checkingForErrors();
+
+    axios.post("/booking", {
+      user: user._id,
+      place: idPlace,
+      guests: guests,
+      checkIn: checkIn,
+      checkOut: checkOut,
+      firstName: firstName,
+      phone: phone,
+      owner: owner,
+    });
+  }
+
+  function checkingForErrors() {
     //errors: 1 - not logged in, 2 - owner, 3 - wrong with the dates, 4 - already have booked, 5 - limit is exceeded
     if (!user?._id) {
       showError(1);
@@ -45,16 +62,6 @@ export default function BookingForm({
       showError(5);
       return 0;
     }
-    axios.post("/booking", {
-      user: user._id,
-      place: idPlace,
-      guests: guests,
-      checkIn: checkIn,
-      checkOut: checkOut,
-      firstName: firstName,
-      phone: phone,
-      owner: owner,
-    });
   }
 
   function dateValidation() {

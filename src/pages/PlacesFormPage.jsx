@@ -58,7 +58,7 @@ export default function NewPlacePage() {
     );
   }
 
-  async function addNewPlace(ev) {
+  async function savePlace(ev) {
     ev.preventDefault();
     const placeData = {
       title,
@@ -93,33 +93,36 @@ export default function NewPlacePage() {
   return (
     <div>
       <ProfileNav />
-      <form onSubmit={addNewPlace}>
-        {preInput("Title", "name somehow your place")}
+      <form onSubmit={savePlace}>
+        {preInput("Title *", "name somehow your place")}
         <input
           className="text-gray-500"
           type="text"
           placeholder="title, for example: My trash pit"
           value={title}
           onChange={(ev) => setTitle(ev.target.value)}
+          required
         />
 
-        {preInput("Address", "An address of a location")}
+        {preInput("Address *", "An address of a location")}
         <input
           className="text-gray-500"
           type="text"
           placeholder="address, type it here"
           value={address}
           onChange={(ev) => setAddress(ev.target.value)}
+          required
         />
 
         {preInput("Photos", "Photos of your place")}
         <PhotosUploader addedPhotos={addedPhotos} onChange={setAddedPhotos} />
 
-        {preInput("Description", "Description of the place")}
+        {preInput("Description *", "Description of the place")}
 
         <textarea
           value={description}
           onChange={(ev) => setDescription(ev.target.value)}
+          required
         />
 
         {preInput("Perks", "select all perks that fit")}
@@ -133,44 +136,48 @@ export default function NewPlacePage() {
         )}
         <div className="grid gap-2 sm:grid-cols-1 md:grid-cols-3 ">
           <div>
-            <p className="text-sm ">Check in time</p>
+            <p className="text-sm ">Check in time *</p>
             <input
-              type="text"
+              type="number"
               className="text-gray-500 "
               placeholder="14"
               value={checkIn}
               onChange={(ev) => setCheckIn(ev.target.value)}
+              required
             />
           </div>
           <div>
-            <p className="text-sm">Check in time</p>
+            <p className="text-sm">Check in time *</p>
             <input
-              type="text"
+              type="number"
               className="text-gray-500 "
               placeholder="11"
               value={checkOut}
               onChange={(ev) => setCheckOut(ev.target.value)}
+              required
             />
           </div>
           <div>
-            <p className="text-sm">Max guests</p>
+            <p className="text-sm">Max guests *</p>
             <input
               type="text"
               className="text-gray-500 "
-              placeholder="4"
+              placeholder="a number of guests"
               value={maxGuest}
               onChange={(ev) => setMaxGuest(ev.target.value)}
+              required
             />
           </div>
         </div>
 
-        {preInput("Price", "Price per night")}
+        {preInput("Price *", "Price per night")}
         <input
           className="text-gray-500"
           type="number"
           placeholder="your price, type it here"
           value={price}
           onChange={(ev) => setPrice(ev.target.value)}
+          required
         />
 
         {preInput("Extra info", "additional info like house rules, etc")}

@@ -14,7 +14,6 @@ export default function PlacePage() {
   const [showGallery, setShowGallery] = useState(false);
   const [errorBooking, setErrorBooking] = useState(0);
 
-
   useEffect(() => {
     if (!id) return;
     axios.get("/places/" + id).then((res) => {
@@ -60,14 +59,16 @@ export default function PlacePage() {
           <div className="pt-10 border-b-2 border-gray-200 pb-10">
             <h2 className="text-2xl font-bold mb-6">The place offers:</h2>
             <ul className="grid grid-rows-3 grid-flow-col">
-              {place.perks?.slice(0, 6).map((perk) => (
-                <li key={perk}>{perk}</li>
-              ))}
+              {place.perks
+                ?.slice(0, 6)
+                .map((perk) => <li key={perk}>{perk}</li>) || "It is empty"}
             </ul>
           </div>
           <div className="pt-10 pb-10">
             <h2 className="text-xl font-bold mb-6">Extra information:</h2>
-            <div className=" text-sm text-gray-500">{place.extraInfo}</div>
+            <div className=" text-sm text-gray-500">
+              {place.extraInfo || "No extra information"}
+            </div>
           </div>
         </div>
         <div className="w-2/5 flex justify-end ">
