@@ -32,9 +32,9 @@ export default function IndexPage() {
     <div className="flex flex-col justify-between min-h-full flex-1">
       <div className="mt-8 grid gap-6 grid-cols-2 md:grid-cols-3 lg:grid-cols-4 flex-1">
         {!ready
-          ? [...Array(8).keys()].map((_) => {
+          ? [...Array(8).keys()].map((_, index) => {
               return (
-                <div>
+                <div key={index}>
                   <SkeletonImgPlace />
                   <SkeletonText width={"w-44"} />
                   <SkeletonText width={"w-32"} />

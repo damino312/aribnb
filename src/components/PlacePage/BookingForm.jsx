@@ -30,7 +30,7 @@ export default function BookingForm({
   function bookThePlace(ev) {
     ev.preventDefault();
 
-    checkingForErrors();
+    if (!checkingForErrors()) return 0;
 
     axios.post("/booking", {
       user: user._id,
@@ -48,19 +48,19 @@ export default function BookingForm({
     //errors: 1 - not logged in, 2 - owner, 3 - wrong with the dates, 4 - already have booked, 5 - limit is exceeded
     if (!user?._id) {
       showError(1);
-      return 0;
+      return false;
     } else if (user?._id === owner) {
       showError(2);
-      return 0;
+      return false;
     } else if (dateValidation() === false) {
       showError(3);
-      return 0;
+      return false;
     } else if (hasBeenBooked() === false) {
       showError(4);
-      return 0;
+      return false;
     } else if (isLimitExceeded() === false) {
       showError(5);
-      return 0;
+      return false;
     }
   }
 

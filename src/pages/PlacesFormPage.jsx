@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import Perks from "../components/PlacesFormPage/Perks";
 import axios from "axios";
@@ -6,7 +6,7 @@ import axios from "axios";
 import PhotosUploader from "../components/PlacesFormPage/PhotosUploader";
 import { Navigate, useParams } from "react-router-dom";
 import ProfileNav from "../components/commonComponents/ProfileNav";
-import { useEffect } from "react";
+import ErrorWindow from "../components/commonComponents/ErrorWindow";
 
 export default function NewPlacePage() {
   const { id } = useParams();
@@ -18,10 +18,12 @@ export default function NewPlacePage() {
   const [perks, setPerks] = useState([]);
   const [checkIn, setCheckIn] = useState("");
   const [checkOut, setCheckOut] = useState("");
-  const [maxGuest, setMaxGuest] = useState(1);
+  const [maxGuests, setMaxGuests] = useState(1);
   const [extraInfo, setExtraInfo] = useState("");
   const [price, setPrice] = useState(100);
   const [redirect, setRedirect] = useState(false);
+
+  const [errorForm, setErrorForm] = useState(0);
   useEffect(() => {
     if (!id) {
       return;
@@ -35,7 +37,7 @@ export default function NewPlacePage() {
       setPerks(data.perks);
       setCheckIn(data.checkIn);
       setCheckOut(data.checkOut);
-      setMaxGuest(data.maxGuest);
+      setMaxGuests(data.maxGuests);
       setExtraInfo(data.extraInfo);
       setPrice(data.price);
     });
@@ -60,6 +62,12 @@ export default function NewPlacePage() {
 
   async function savePlace(ev) {
     ev.preventDefault();
+
+    //minimum photos
+    if (addedPhotos.length < 5) {
+      setErrorForm(1);
+      return 0;
+    }
     const placeData = {
       title,
       address,
@@ -69,7 +77,7 @@ export default function NewPlacePage() {
       extraInfo,
       checkIn,
       checkOut,
-      maxGuest,
+      maxGuests,
       price,
     };
     if (id) {
@@ -114,7 +122,7 @@ export default function NewPlacePage() {
           required
         />
 
-        {preInput("Photos", "Photos of your place")}
+        {preInput("Photos (at least 5 photos) *", "Photos of your place")}
         <PhotosUploader addedPhotos={addedPhotos} onChange={setAddedPhotos} />
 
         {preInput("Description *", "Description of the place")}
@@ -163,8 +171,8 @@ export default function NewPlacePage() {
               type="text"
               className="text-gray-500 "
               placeholder="a number of guests"
-              value={maxGuest}
-              onChange={(ev) => setMaxGuest(ev.target.value)}
+              value={maxGuests}
+              onChange={(ev) => setMaxGuests(ev.target.value)}
               required
             />
           </div>
@@ -188,6 +196,11 @@ export default function NewPlacePage() {
 
         <button className="primary my-4">Save</button>
       </form>
+      <ErrorWindow
+        isShown={errorForm}
+        hideError={() => setErrorForm(0)}
+        text={errorForm === 1 ? "Not enough photos (at least 5 photos)" : null}
+      />
     </div>
   );
 }
