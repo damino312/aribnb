@@ -1,10 +1,9 @@
-import React, { createContext, useContext, useState } from "react";
+import React, { useContext, useState } from "react";
 import { UserContext } from "../UserContext";
 import { Navigate, useParams } from "react-router-dom";
 import ProfileNav from "../components/commonComponents/ProfileNav";
 
 import axios from "axios";
-import PlacesPage from "./PlacesPage";
 
 export default function ProfilePage() {
   const { user, ready, setUser, setReady } = useContext(UserContext);
@@ -19,7 +18,7 @@ export default function ProfilePage() {
   async function logout() {
     await axios.post("/logout");
 
-    setUser(null); // чтобы убрать данные юзера
+    setUser(null); // to delete the data of a user
     setReady(true);
   }
 

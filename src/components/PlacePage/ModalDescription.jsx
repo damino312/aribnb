@@ -1,15 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 
 export default function ModalDescription({
   isShown,
   closeModalDescription,
   description,
 }) {
-  
   if (!isShown) {
     return;
   }
-  const [closing, setClosing] = useState(false) // straight below the if
+  const [closing, setClosing] = useState(false); // straight below the if
 
   //to not close the modal window by clicking any area but just by the container
   const handleBackdropClick = (event) => {
@@ -19,7 +18,7 @@ export default function ModalDescription({
   };
 
   const closeAnim = () => {
-    setClosing(true)
+    setClosing(true);
     setTimeout(() => {
       closeModalDescription(); // so that It did not close before the anim ends
     }, 500);

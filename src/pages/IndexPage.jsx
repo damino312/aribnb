@@ -1,8 +1,7 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import Pagination from "../components/commonComponents/Pagination";
-import { useContext } from "react";
 import { PlaceContext } from "../PlaceContext";
 import {
   SkeletonImgPlace,
