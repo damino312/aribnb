@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { useParams } from "react-router-dom";
 import Pictures from "../components/PlacePage/Pictures";
 import ModalDescription from "../components/PlacePage/ModalDescription";
@@ -59,15 +59,19 @@ export default function PlacePage() {
           <div className="pt-10 border-b-2 border-gray-200 pb-10">
             <h2 className="text-2xl font-bold mb-6">The place offers:</h2>
             <ul className="grid grid-rows-3 grid-flow-col">
-              {place.perks
-                ?.slice(0, 6)
-                .map((perk) => <li key={perk}>{perk}</li>) || "It is empty"}
+              {place.perks && place.perks.length > 0 ? (
+                place.perks
+                  .slice(0, 6)
+                  .map((perk) => <li key={perk}>{perk}</li>)
+              ) : (
+                <li>It is empty</li>
+              )}
             </ul>
           </div>
           <div className="pt-10 pb-10">
             <h2 className="text-xl font-bold mb-6">Extra information:</h2>
             <div className=" text-sm text-gray-500">
-              {place.extraInfo || "No extra information"}
+              {place.extraInfo || "No extra info"}
             </div>
           </div>
         </div>
