@@ -29,7 +29,7 @@ export default function BookingForm({
 
   function bookThePlace(ev) {
     ev.preventDefault();
-
+    console.log(checkingForErrors());
     if (!checkingForErrors()) return 0;
 
     axios.post("/booking", {
@@ -62,6 +62,7 @@ export default function BookingForm({
       showError(5);
       return false;
     }
+    return true;
   }
 
   function dateValidation() {
