@@ -2,6 +2,8 @@
 
 The tools: react.js, tailwind, express.js, mongodb, Vite
 
+Link to the backend: https://github.com/damino312/airbnb-api
+
 This is the frontend repository for the Airbnb project. It is built using React and includes various features and functionalities for an Airbnb-like application.
 
 Getting Started
