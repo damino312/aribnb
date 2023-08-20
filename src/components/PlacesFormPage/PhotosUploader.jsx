@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { LINK } from "../../config/config";
 
 export default function PhotosUploader({ addedPhotos, onChange }) {
   const [photoLink, setPhotoLink] = useState("");
@@ -64,7 +65,7 @@ export default function PhotosUploader({ addedPhotos, onChange }) {
             <div className="h-32 flex relative bg-inherit" key={link}>
               <img
                 className="rounded-2xl w-full object-cover position-center"
-                src={"http://localhost:4000/uploads/" + link}
+                src={LINK + "/uploads/" + link}
               ></img>
               <button
                 className="absolute right-0   hover:bg-stone-400 rounded-2xl ease-in duration-300 "

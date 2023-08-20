@@ -4,6 +4,7 @@ import BookingNav from "../components/commonComponents/BookingNav";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import { LINK } from "../config/config";
 
 export default function RequestHistoryPage() {
   const [history, setHistory] = useState([]);
@@ -31,10 +32,7 @@ export default function RequestHistoryPage() {
             key={booking._id}
             to={"/place/" + booking.place._id}
           >
-            <img
-              src={"http://localhost:4000/uploads/" + booking.place.photos?.[0]}
-              alt=""
-            />
+            <img src={LINK + "/uploads/" + booking.place.photos?.[0]} alt="" />
             <div className="grid grid-cols-layout grid-rows-3 w-full text-lg items-center  ">
               <h2 className="col-span-3 text-center text-2xl font-bold">
                 {booking.place.title}

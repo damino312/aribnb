@@ -13,8 +13,9 @@ import BookingPage from "./pages/BookingPage";
 import RequestPage from "./pages/RequestPage";
 import RequestHistoryPage from "./pages/RequestHistoryPage";
 import PlaceContextProvider from "./PlaceContext";
+import { LINK } from "./config/config";
 
-axios.defaults.baseURL = "http://localhost:4000";
+axios.defaults.baseURL = LINK;
 axios.defaults.withCredentials = true;
 
 export default function App() {

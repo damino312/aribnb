@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import ProfileNav from "../components/commonComponents/ProfileNav";
+import { LINK } from "../config/config";
 
 export default function PlacesPage() {
   const [places, setPlaces] = useState([]);
@@ -62,7 +63,7 @@ export default function PlacesPage() {
               <div className="w-32 h-32 bg-gray-300 shrink-0">
                 {place.photos.length > 0 && (
                   <img
-                    src={"http://localhost:4000/uploads/" + place.photos[0]}
+                    src={LINK + "/uploads/" + place.photos[0]}
                     alt=""
                     className="h-full w-full object-cover"
                   ></img>

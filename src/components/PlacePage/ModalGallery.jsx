@@ -1,4 +1,5 @@
 import React from "react";
+import { LINK } from "../../config/config";
 
 export default function ModalGallery({ isShown, images, closeModalGallery }) {
   if (!isShown) return null;
@@ -31,7 +32,7 @@ export default function ModalGallery({ isShown, images, closeModalGallery }) {
           {images.map((image) => (
             <img
               key={image}
-              src={"http://localhost:4000/uploads/" + image}
+              src={LINK + "/uploads/" + image}
               alt=""
               className="object-cover object-center w-full aspect-video mt-2 last:pb-10"
             />

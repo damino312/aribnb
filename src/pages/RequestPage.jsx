@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import ProfileNav from "../components/commonComponents/ProfileNav";
 import BookingNav from "../components/commonComponents/BookingNav";
+import { LINK } from "../config/config";
 
 export default function RequestPage() {
   const [myRequests, setMyRequests] = useState([]);
@@ -41,10 +42,7 @@ export default function RequestPage() {
             key={booking._id}
             to={"/place/" + booking.place._id}
           >
-            <img
-              src={"http://localhost:4000/uploads/" + booking.place.photos?.[0]}
-              alt=""
-            />
+            <img src={LINK + "/uploads/" + booking.place.photos?.[0]} alt="" />
             <div className="grid grid-cols-layout grid-rows-3 w-full text-lg items-center  ">
               <h2 className="col-span-3 text-center text-2xl font-bold">
                 {booking.place.title}

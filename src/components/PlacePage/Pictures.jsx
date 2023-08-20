@@ -1,21 +1,22 @@
 import React from "react";
+import { LINK } from "../../config/config";
 
 export default function Pictures({ place, showGallery }) {
   return (
     <div className="grid gap-2 grid-cols-[1fr_1fr] rounded-3xl overflow-hidden  ">
       {place.photos?.[0] && (
         <img
-          src={"http://localhost:4000/uploads/" + place.photos?.[0]}
+          src={LINK + "/uploads/" + place.photos?.[0]}
           alt=""
           className="  w-full  object-cover object-center h-96       "
         ></img>
-      )}    
+      )}
 
       <div className="grid grid-rows-2 grid-cols-2 gap-2 h-96 relative ">
         {place.photos?.slice(1, 5).map((photo) => (
           <img
             key={photo}
-            src={"http://localhost:4000/uploads/" + photo}
+            src={LINK + "/uploads/" + photo}
             alt=""
             className="object-cover object-center w-full h-full"
           />
