@@ -1,6 +1,6 @@
 # Airbnb Frontend
 
-The tools: react.js, tailwind, express.js, mongodb, Vite
+The tools: react.js, tailwind, express.js, mongodb, Vite, axios, react-routes
 
 Link to the backend: https://github.com/damino312/airbnb-api
 
@@ -23,6 +23,6 @@ Copy code
 npm run dev
 5 Access the application:
 
-Open your web browser and visit http://localhost:4000 (or the specified port in the configuration).
+In the config.js you can specify LINK to your back-end
 
 
