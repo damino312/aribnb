@@ -1,18 +1,18 @@
 import React from "react";
 import { LINK } from "../../config/config";
 
-export default function Pictures({ place, showGallery }) {
+export default function Pictures({ place, showGallery, hideBar }) {
   return (
-    <div className="grid gap-2 grid-cols-[1fr_1fr] rounded-3xl overflow-hidden  ">
+    <div className="block rounded-3xl overflow-hidden relative lg:grid lg:grid-cols-[1fr_1fr] lg:gap-2  ">
       {place.photos?.[0] && (
         <img
           src={LINK + "/uploads/" + place.photos?.[0]}
           alt=""
-          className="  w-full  object-cover object-center h-96       "
+          className="  w-full  object-cover object-center h-96"
         ></img>
       )}
 
-      <div className="grid grid-rows-2 grid-cols-2 gap-2 h-96 relative ">
+      <div className=" grid-rows-2 grid-cols-2 gap-2 h-96  hidden lg:grid ">
         {place.photos?.slice(1, 5).map((photo) => (
           <img
             key={photo}
@@ -21,13 +21,16 @@ export default function Pictures({ place, showGallery }) {
             className="object-cover object-center w-full h-full"
           />
         ))}
-        <button
-          onClick={showGallery}
-          className="py-2 px-4 border rounded absolute bottom-5 right-5 bg-gray-300 hover:-translate-y-4 hover:bg-primary hover:text-white transition-all"
-        >
-          See all photos
-        </button>
       </div>
+      <button
+        onClick={() => {
+          hideBar();
+          showGallery();
+        }}
+        className="py-2 px-4 border border-black rounded absolute bottom-5 right-5 bg-gray-300 hover:-translate-y-4 hover:bg-primary hover:border-white hover:text-white transition-all"
+      >
+        See all photos
+      </button>
     </div>
   );
 }

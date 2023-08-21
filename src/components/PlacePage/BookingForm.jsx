@@ -120,11 +120,11 @@ export default function BookingForm({
 
   return (
     <form onSubmit={(ev) => bookThePlace(ev)}>
-      <div className="border border-gray-300 rounded-2xl grid grid-cols-2 overflow-hidden ">
-        <div className="p-2 py-3 border-r border-inherit ">
+      <div className="border border-gray-300 rounded-2xl grid grid-cols-2  overflow-hidden ">
+        <div className="p-2 py-3 border-b min-[460px]:border-r border-inherit col-span-2  min-[460px]:col-span-1 ">
           {formField("Check in", "date", checkIn, setCheckIn)}
         </div>
-        <div className="p-2 py-3">
+        <div className="p-2 py-3 col-span-2  min-[460px]:col-span-1">
           {formField("Check out", "date", checkOut, setCheckOut)}
         </div>
         <div className=" col-span-2 p-2 py-3 border-t border-inherit">

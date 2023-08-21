@@ -12,7 +12,7 @@ export default function Booking({ price, idPlace, showError, owner }) {
   }
 
   return (
-    <div className=" w-5/6 border rounded-3xl h-min px-4 py-6">
+    <div className=" w-full lg:w-5/6 border rounded-3xl h-min px-4 py-6">
       <h3 className="text-lg mb-4">
         <span className="text-2xl font-bold">
           $ {price?.toLocaleString("en-IN")}

@@ -71,8 +71,10 @@ export default function PlacesPage() {
               </div>
               <div className="flex justify-between w-full group-hover:gap-2">
                 <div className="h-32 w-full">
-                  <h2 className="text-xl text-center mb-1 ">{place.title}</h2>
-                  <p className="text-left text-sm line-clamp-5 ">
+                  <h2 className="text-xl text-center mb-1 line-clamp-2 ">
+                    {place.title}
+                  </h2>
+                  <p className="text-left text-sm line-clamp-3  ">
                     {place.description}
                   </p>
                 </div>

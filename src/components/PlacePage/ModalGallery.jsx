@@ -1,15 +1,25 @@
 import React from "react";
 import { LINK } from "../../config/config";
 
-export default function ModalGallery({ isShown, images, closeModalGallery }) {
-  if (!isShown) return null;
+export default function ModalGallery({
+  isShown,
+  images,
+  closeModalGallery,
+  showBar,
+}) {
+  if (!isShown) {
+    return null;
+  }
 
   return (
     <div className="inset-0 fixed bg-black bg-opacity-100 overflow-auto">
       <div className="rounded-lg w-full max-w-screen-lg max-h-screen mx-auto ">
         <div className="p-4">
           <button
-            onClick={closeModalGallery}
+            onClick={() => {
+              showBar();
+              closeModalGallery();
+            }}
             className="p-2 hover:animate-[turnAround_1s_ease-in-out]"
           >
             <svg

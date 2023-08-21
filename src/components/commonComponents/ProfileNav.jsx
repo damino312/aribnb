@@ -4,18 +4,19 @@ import { Link, useLocation } from "react-router-dom";
 export default function ProfileNav() {
   let { pathname } = useLocation();
   let subpage = pathname.split("/")?.[2];
+
   if (subpage === undefined) {
     subpage = "profile";
   }
   function linkClasses(type = null) {
-    let classes = "py-2 px-6 rounded-full bg-gray-200";
+    let classes = "py-2 px-6 rounded-full bg-gray-200 text-center";
     if (type === subpage) {
       classes += " bg-primary text-white";
     }
     return classes;
   }
   return (
-    <nav className="flex justify-center mt-8 gap-2 ">
+    <nav className="grid grid-cols-1 min-[480px]:grid-cols-2 min-[880px]:flex justify-center mt-8 gap-2 ">
       <Link className={linkClasses("profile")} to={"/account"}>
         My profile
       </Link>

@@ -4,10 +4,12 @@ export default function ModalDescription({
   isShown,
   closeModalDescription,
   description,
+  showBar,
 }) {
   if (!isShown) {
     return;
   }
+
   const [closing, setClosing] = useState(false); // straight below the if
 
   //to not close the modal window by clicking any area but just by the container
@@ -31,10 +33,13 @@ export default function ModalDescription({
       } flex justify-center items-center transition duration-500`}
       onClick={handleBackdropClick}
     >
-      <div className=" h-3/4 max-h-full overflow-auto w-1/2 bg-white rounded-lg animate-[popUp_0.5s_ease-in-out] p-6">
+      <div className=" h-4/5 max-h-full overflow-auto w-2/3 bg-white rounded-lg animate-[popUp_0.5s_ease-in-out] p-6">
         <div className="mt-22">
           <button
-            onClick={closeAnim}
+            onClick={() => {
+              showBar();
+              closeAnim();
+            }}
             className=" hover:animate-[turnAround_1s_ease-in-out] "
           >
             <svg
