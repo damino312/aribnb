@@ -17,8 +17,13 @@ export default function LoginPage() {
         { email, password },
         { withCredentials: true }
       );
+
+      if (!data) {
+        alert("Wrong login or password");
+        return;
+      }
       setUser(data);
-      setReady(true)
+      setReady(true);
       alert("Login successful");
       setRedirected(true);
     } catch (e) {
