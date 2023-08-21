@@ -8,10 +8,13 @@ export default function PlaceContextProvider({ children }) {
   const [ready, setReady] = useState(false);
 
   useEffect(() => {
-    axios.get("/places").then((response) => {
-      setPlaces(response.data);
-      setReady(true);
-    });
+    axios
+      .get("/places")
+      .then((response) => {
+        setPlaces(response.data);
+        setReady(true);
+      })
+      .catch((er) => console.error("Cannot get places "));
   }, []);
 
   return (
