@@ -12,9 +12,9 @@ export default function ModalBooking({
   if (!isShown) {
     return;
   }
-  const [closing, setClosing] = useState(false); // straight below the if
+  const [closing, setClosing] = useState(false); // Straight below the if
 
-  //to not close the modal window by clicking any area but just by the container
+  //In order not to close the modal window by clicking any area but just by the container
   const handleBackdropClick = (event) => {
     if (event.target === event.currentTarget) {
       closeAnim();
@@ -24,7 +24,7 @@ export default function ModalBooking({
   const closeAnim = () => {
     setClosing(true);
     setTimeout(() => {
-      closeModalBooking(); // so that It did not close before the anim ends
+      closeModalBooking(); // So that It did not close before the anim ends
     }, 500);
   };
   return (
@@ -34,7 +34,28 @@ export default function ModalBooking({
       } flex justify-center items-center transition duration-500`}
       onClick={handleBackdropClick}
     >
-      <div className="max-h-full overflow-auto w-2/3 bg-white rounded-3xl animate-[popUp_0.5s_ease-in-out]">
+      <div className="h-4/5 max-h-full overflow-auto w-5/6 bg-white rounded-3xl animate-[popUp_0.5s_ease-in-out]">
+        <button
+          onClick={() => {
+            closeAnim();
+          }}
+          className=" hover:animate-[turnAround_1s_ease-in-out] mx-2 mt-4 p-1 "
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            strokeWidth={1.5}
+            stroke="currentColor"
+            className="w-8 h-8 text-red-700"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M6 18L18 6M6 6l12 12"
+            />
+          </svg>
+        </button>
         <Booking
           price={price}
           idPlace={idPlace}

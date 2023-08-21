@@ -45,7 +45,6 @@ export default function PlacePage() {
               className="py-1 mt-2"
               onClick={() => {
                 setShowDescription(true);
-                setIsBookingBarVisible(false);
               }}
             >
               <span className="font-bold text-lg border-b-2 border-black">
@@ -95,12 +94,16 @@ export default function PlacePage() {
           />
         </div>
       </div>
+      <AdaptiveBookingBar
+        isShown={isBookingBarVisible}
+        price={place.price}
+        openModalBooking={() => setShowBooking(true)}
+      />
 
       <ModalDescription
         isShown={showDescription}
         closeModalDescription={() => setShowDescription(false)}
         description={place.description}
-        showBar={() => setIsBookingBarVisible(true)}
       />
       <ModalGallery
         images={place.photos}
@@ -108,11 +111,7 @@ export default function PlacePage() {
         closeModalGallery={() => setShowGallery(false)}
         showBar={() => setIsBookingBarVisible(true)}
       />
-      <AdaptiveBookingBar
-        isShown={isBookingBarVisible}
-        price={place.price}
-        openModalBooking={() => setShowBooking(true)}
-      />
+
       <ModalBooking
         isShown={showBooking}
         closeModalBooking={() => setShowBooking(false)}
